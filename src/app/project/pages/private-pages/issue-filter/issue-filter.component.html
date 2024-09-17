@@ -1,0 +1,143 @@
+@if (!loading) {
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <mat-form-field class="col-2">
+        <mat-label>Project</mat-label>
+        <mat-select [formControl]="project" multiple>
+          @for (project of projectList; track project) {
+            <mat-option [value]="project.id">{{project.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-2">
+        <mat-label>Users</mat-label>
+        <mat-select [formControl]="user" multiple>
+          @for (user of users; track user.userId) {
+            <mat-option [value]="user.userId" class="smaller">{{user.userName}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-2">
+        <mat-label>Status</mat-label>
+        <mat-select [formControl]="status" multiple>
+          @for (status of statusList; track status) {
+            <mat-option [value]="status">{{status}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-2">
+        <mat-label>Sprint</mat-label>
+        <mat-select [formControl]="sprint" multiple>
+          @for (sprint of sprintList; track sprint) {
+            <mat-option [value]="sprint.id">{{sprint.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-2">
+        <mat-label>Type</mat-label>
+        <mat-select [formControl]="type" multiple>
+          @for (type of typeList; track type) {
+            <mat-option [value]="type">{{type}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="row mx-3">
+      <div class="col-lg-12">
+        <div class="text-end mb-3 mt-4">
+          <button class="btn btn-primary" (click)="applyFilter()">Apply Filter</button>
+          <button class="btn btn-primary mx-2"(click)="exportToCSV()">Export</button> 
+        </div>
+        <div class="card rounded-0">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">Issues</h5>
+            <input type="text" name="" id="" [(ngModel)]="searchValue" class="rounded-1 border">
+          </div>
+          <div class="card-body p-4">
+            <div class="table-responsive">
+              <table class="table table-striped border">
+                <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    <th (click)="sortTable('name')">Type
+                      <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortName"></i>
+                      <i class="fa-solid fa-angle-down" *ngIf="sortName"></i> -->
+                    </th>
+                    <th (click)="sortTable('key')">Key
+                      <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortKey"></i>
+                      <i class="fa-solid fa-angle-down" *ngIf="sortKey"></i> -->
+                    </th>
+                    <th (click)="sortTable('access')">Title
+                      <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortAccess"></i>
+                      <i class="fa-solid fa-angle-down" *ngIf="sortAccess"></i> -->
+                    </th>
+                    <th (click)="sortTable('categoryName')">Status
+                      <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortCategoryName"></i>
+                      <i class="fa-solid fa-angle-down" *ngIf="sortCategoryName"></i> -->
+                    </th>
+                    <th (click)="sortTable('categoryName')">Assignee
+                        <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortCategoryName"></i>
+                        <i class="fa-solid fa-angle-down" *ngIf="sortCategoryName"></i> -->
+                    </th>
+                    <th (click)="sortTable('categoryName')">Reporter
+                      <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortCategoryName"></i>
+                      <i class="fa-solid fa-angle-down" *ngIf="sortCategoryName"></i> -->
+                    </th>
+                    <th (click)="sortTable('created_By')">Priority
+                      <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortCreated_By"></i>
+                      <i class="fa-solid fa-angle-down" *ngIf="sortCreated_By"></i> -->
+                    </th>
+                    <th (click)="sortTable('created_at')">Sprint
+                      <!-- <i class="fa-solid fa-angle-up" *ngIf="!sortCreated_at"></i>
+                      <i class="fa-solid fa-angle-down" *ngIf="sortCreated_at"></i> -->
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for( issue of filteredData| sort:sortField:sortAscending; track issue.id; ){
+                  <tr (click)="openDialog(issue)">
+                    <td class="text-left">{{ issue.type}}</td>
+                    <td class="text-left">{{ issue.projectIssueKeyId }}</td>
+                    <td class="text-left">{{ issue.title }}</td>
+                    <td class="text-left">{{ issue.status }}</td>
+                    <td class="text-left">{{ issue.assignTo }}</td>
+                    <td class="text-left">{{ issue.reportTo }}</td>
+                    <td class="text-left">{{ issue.priority}}</td>
+                    <td class="text-left">{{ issue.sprintName}}</td>
+                  </tr>
+                  }
+                  @empty {
+                  <td colspan="10" class="text-center"> There are no items. </td>}
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-end" *ngIf="!isSearchEmpty">
+                <nav>
+                  <ul class="pagination mb-0">
+                    <li class="page-item" [ngClass]="{ disabled:pageNumber === 1 }">
+                      <a class="page-link" (click)="goToPage(pageNumber - 1)">Previous</a>
+                    </li>
+                    <li class="page-item" [ngClass]="{ active: page === pageNumber }"
+                      *ngFor="let page of totalPageCount()">
+                      <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                    </li>
+                    <li class="page-item"
+                      [ngClass]="{ disabled:pageNumber == totalPageCount()[totalPageCount().length-1] }">
+                      <a class="page-link" (click)="goToPage(pageNumber + 1)">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+@else {
+  <div class="overlay">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+}

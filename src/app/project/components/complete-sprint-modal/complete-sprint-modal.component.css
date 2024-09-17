@@ -1,0 +1,10 @@
+.outline{
+    width: 150px;
+    box-shadow: none;
+    outline-style: none;
+    border-color:  rgb(66 82 110);
+}
+.outline:focus{
+    outline-style: solid;
+    border: 2px solid rgb(66 82 110);
+}

@@ -1,0 +1,38 @@
+
+
+header .navbar{
+    position: absolute;
+    top:0;
+    left:250px;
+    right:0;
+    z-index:1;
+    height: 60px;
+    /* box-shadow: 0 1px 8px #00000021;
+    background-color: #f8f8f8; */
+}
+/* .dropdown-menu{
+    right: 0;
+    left: auto;
+} */
+
+.nav-link{
+    color:#1a1945;
+}
+
+.nav-link:hover{
+    color:#727272;
+}
+
+.navbar-nav .nav-link.active{
+    color:#727272;
+}
+
+.logo-width{
+    width: 145px;
+}
+
+.drop-menu{
+    left: auto;
+    right: 0;
+}
+

@@ -1,0 +1,27 @@
+<div class="container">
+    <div>Add User</div>
+    <form [formGroup]="addUserForm">
+        <div>
+            <label>Email</label>
+            <input type="text" formControlName="email">
+            @if (addUserForm.get('email')?.hasError('required') && addUserForm.get('email')?.touched) {
+            <span class="error">Email is required.</span>
+            }
+            @else if (addUserForm.get('email')?.hasError('email') && addUserForm.get('email')?.touched) {
+            <span class="error">Invalid Email</span>
+            }
+        </div>
+        <div>
+            <label for="role">Role</label>
+            <select name="role" formControlName="roleId">
+                <option value="1" >Administrator</option>
+                <option value="2">Member</option>
+                <option value="3">Viewer</option>
+            </select>
+        </div>
+        <div>
+            <button class="btn-primary" (click)="submit()">Submit</button>
+            <button (click)="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

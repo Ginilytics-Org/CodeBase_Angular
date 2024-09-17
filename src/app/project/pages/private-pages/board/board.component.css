@@ -1,0 +1,159 @@
+.example-container {
+  margin-right: 0.5rem;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-radius: 0.125rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 245 247/var(--tw-bg-opacity));
+  width: 18%;
+  min-height: 650px;
+  min-width: 200px;
+}
+
+.example-list {
+  margin-right: 0.5rem;
+  display: flex;
+  height: 100%;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-radius: 0.125rem;
+  --tw-bg-opacity: 1;
+    padding-bottom: 20px;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.line-clamp {
+  /* display: -webkit-box; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+
+.header-section {
+  background-color: #f7f8f9;
+  padding: 8px 10px;
+  border-top-right-radius: 5px !important;
+  border-top-left-radius: 5px !important;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e0e3e7;
+}
+
+.header-section .heading {
+  font-size: 13px;
+  font-weight: 500;
+  background-color: rgb(223, 236, 255);
+  color: rgb(8, 66, 152);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.header-section .done {
+  background-color: rgba(3, 110, 62, 0.18);
+  color: rgb(15, 81, 50);
+}
+
+.header-section .inprogress {
+  background-color: rgb(255, 235, 237);
+  color: rgb(132, 32, 41);
+}
+
+.header-section .qa {
+  background-color: rgb(255, 241, 196);
+  color: rgb(102, 77, 3)
+}
+
+
+.icon-arrow {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  color: rgb(233, 127, 51);
+}
+
+.card {
+  padding: 10px;
+}
+
+.card-title {
+  color: #b97900;
+  background-color: #ffb93666;
+  padding: 0px 7px;
+  font-size: 13px;
+  border-radius: 3px;
+}
+
+.card-text {
+  font-size: 13px;
+  color: #000;
+  margin-bottom: 0;
+}
+
+.shadow {
+  box-shadow: 0px 1px 1px #091E4240, 0px 0px 1px #091E424F !important;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* semi-transparent white overlay */
+  z-index: 999; /* ensure it's above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay .spinner-border {
+  z-index: 1000; /* ensure spinner is above overlay */
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size:10px;
+}
+.smaller {
+  font-size: 14px; /* Adjust font size as needed */
+  background-color: white;
+}

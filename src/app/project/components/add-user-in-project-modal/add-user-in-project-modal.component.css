@@ -1,0 +1,36 @@
+
+.container {
+    background-color: white;
+    padding:20px;
+}
+
+form {
+    margin-top: 20px; 
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select,input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+span.error {
+    color: red;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 20px; 
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -1,0 +1,84 @@
+<form [formGroup]="sprintForm" style="background-color: white;" class="p-5">
+    <div class="text-xl  fw-bold">
+        Start Sprint:   
+    </div>
+    <div class="mb-3">
+        <label for="InputSprint" class="form-label label p-0">
+            Sprint Name<span id="required"> *</span>
+        </label>
+        <input type="text" class="form-control input w-50" id="InputSprint" formControlName="name" >
+        @if (sprintForm.get('name')?.hasError('required') && sprintForm.get('name')?.touched) {
+            <div class="text-danger">
+                Sprint name is required.
+            </div>
+        }
+    </div>
+    <div class="mb-1">
+        <label for="Duration" class="form-label input label p-0">
+            Duration<span id="required"> *</span>
+        </label>
+        <select class="form-select input w-50" formControlName="duration" [(ngModel)]="selectedOption" (change)="setDateRange()">
+            <option value="1">Custom</option>
+            <option value="2">One Week</option>
+            <option value="3">Two Week</option>
+            <option value="4">One Month</option>
+        </select>
+        @if (sprintForm.get('duration')?.hasError('required') && sprintForm.get('duration')?.touched) {
+            <div class="text-danger">
+                Duration is required.
+            </div>
+        }
+    </div>
+    <div class="mt-3 form-group">
+        <label class="label">
+            Start Date<span id="required"> *</span>
+        </label>
+        <input type="date" class="form-control input w-50" id="InputSprint" formControlName="startDate">
+        @if (sprintForm.get('startDate')?.hasError('required') && sprintForm.get('startDate')?.touched) {
+            <div class="text-danger">
+                Start date is required. 
+            </div>
+        }
+        @else if (sprintForm.get('startDate')?.hasError('pattern') && sprintForm.get('startDate')?.touched) {
+            <div class="text-danger">
+                Invalid date format. Please use DD-MM-YYYY.
+            </div>
+        }
+    </div>
+    <div class="mt-3 form-group">
+        <label class="label">
+            End Date<span id="required"> *</span>
+        </label>
+        <input type="date" class="form-control input w-50" id="InputSprint" formControlName="endDate">
+        @if (sprintForm.get('endDate')?.hasError('required') && sprintForm.get('endDate')?.touched) {
+            <div class="text-danger">
+                End date is required. 
+            </div>
+        }
+        @else if (sprintForm.get('endDate')?.hasError('pattern') && sprintForm.get('endDate')?.touched) {
+            <div class="text-danger">
+                Invalid date format. Please use DD-MM-YYYY.
+            </div>
+        }
+    </div>
+    <div class="mt-3 form-group">
+        <label class="label">
+            Sprint Goal<span id="required"> *</span>
+        </label>
+        <textarea class="form-control input" id="floatingTextarea" formControlName="description"></textarea>
+        @if (sprintForm.get('description')?.hasError('required') && sprintForm.get('description')?.touched) {
+            <div class="text-danger">
+                Description is required.
+            </div>
+        }
+    </div>
+
+    <div class="mt-3 mb-2 form-group form-action d-flex justify-content-end">
+        <button class="btn btn-primary mr-2" (click)="submitForm()">
+            Submit
+        </button>
+        <button class="btn btn-secondary" (click)="cancel()">
+            Cancel
+        </button>
+    </div>
+</form>

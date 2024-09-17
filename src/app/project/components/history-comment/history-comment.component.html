@@ -1,0 +1,49 @@
+@if(!loading){
+    @for (data of mergedData; track data) {
+        <div class="m-2">
+            @if (data.type === 'history') {
+            <div>
+                <div>
+                    {{ data.data.name }} {{ data.data.action }} {{ getPrefixForAction(data.data.fieldChanged) }}
+                    {{ data.data.fieldChanged }}.
+                    <span class="text-secondary small"> {{ calculateElapsedTime(data.data) }}</span>
+                    <span class="btn btn-secondary p-0 px-1">History</span>
+                </div>
+                @if(data.data.action !='Created'){
+                <div>
+                    <span [innerHTML]="getFormattedValue(data.data.previousValue)"></span>
+                    @if (data.data.fieldChanged === 'TimeEstimate' || data.data.fieldChanged === 'TimeSpent') {
+                    <span>Hr</span>
+                    }
+                    <span class="gap">&nbsp;&nbsp;→&nbsp;&nbsp;</span>
+                    <span [innerHTML]="getFormattedValue(data.data.currentValue)"></span>
+                    @if (data.data.fieldChanged === 'TimeEstimate' || data.data.fieldChanged === 'TimeSpent') {
+                    <span>Hr</span>
+                    }
+                </div>
+                <div [innerHTML]="data.data.history">
+                </div>
+                }
+            </div>
+            }
+            @if (data.type === 'comment') {
+            <div>
+                <div>
+                    {{ data.data.name }}
+                    <span class="text-secondary small"> {{ calculateCommentElapsedTime(data.data) }}</span>
+                    <span class="btn btn-secondary p-0 px-1">Comment</span>
+                </div>
+            </div>
+            <div [innerHTML]="data.data.comment">
+            </div>
+            }
+        </div>
+    }
+}
+@else {
+    <div class="overlay">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+}

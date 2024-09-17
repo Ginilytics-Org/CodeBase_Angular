@@ -1,0 +1,144 @@
+<div class="vh-100 d-flex justify-content-center align-items-center flex-column login-bg">
+    <!-- <div class="container text-center">
+        <figure>
+            <img src="assets/logo.png" alt="logo" class="img-fluid logo-width">
+        </figure>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mx-auto">
+               <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <h3 class="card-heading text-center">Welcome</h3>
+                        <h5 class="card-title text-center">Sign into your Account.</h5>
+                        <form [formGroup]="loginForm" (ngSubmit)="login()">
+                            <div class="mb-3 mt-3">
+                                <label for="email" class="form-label">Email address<span class="required">*</span></label>
+                                <input type="email" class="form-control" id="email" formControlName="email">
+                                @if(loginForm.controls['email'].errors && (submit || loginForm.controls['email'].touched)){
+                                <div class="">
+                                    @if(loginForm.controls['email'].errors['required']){
+                                    <div class="required"> Email is Required </div>
+                                    }
+                                    @else if (loginForm.controls['email'].errors['email']) {
+                                    <div> Invalid email format </div>
+                                    }
+                                </div>
+                                }
+                    
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password<span class="required">*</span></label>
+                                <input type="password" class="form-control" id="password" formControlName="password">
+                                @if( loginForm.controls['password'].errors && (submit || loginForm.controls['password'].touched)){
+                                <div class="">
+                                    @if(loginForm.controls['password'].errors['required']){
+                                    <div class="required"> Password is Required </div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <div class="mb-3 form-check d-flex justify-content-between">
+                                <div>
+                                    <input type="checkbox" class="form-check-input" id="remember-me" formControlName="rememberMe">
+                                    <label class="form-check-label forgot-text" for="remember-me">Remember Me</label>
+                                </div>
+                                <a href="#" class="text-decoration-none forgot-text">Forgot Password ?</a>
+                            </div>
+                            <div class="text-end">
+                               <button type="submit" class="btn btn-primary w-100">Login</button>
+                             </div>
+                             <div class="text-center mt-3 px-3">
+                                <p class="bottom-content">By signing up you agree to our
+                                    <a target="_blank" href="/conditions" class="text-decoration-none">Terms of Service</a>
+                                    and
+                                    <a target="_blank" href="/policies" class="text-decoration-none">Privacy Policy</a>
+                                </p>
+                                <p class="mb-0 bottom-content">©PMTool</p>
+                             </div>
+                        </form>   
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="g-0 px-0 bg-white rounded-2 shadow">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 py-5">
+                    <div class="card border-0">
+                        <div class="card-body ">
+                            <h3 class="card-heading text-center">Welcome</h3>
+                            <h5 class="card-title text-center">Sign into your Account.</h5>
+                            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                                <div class="mb-3 mt-3 login-form">
+                                    <label for="email" class="form-label">Email address<span
+                                            class="required">*</span></label>
+                                    <input type="email" class="form-control" id="email" formControlName="email">
+                                    @if(loginForm.controls['email'].errors && (submit ||
+                                    loginForm.controls['email'].touched)){
+                                    <div class="">
+                                        @if(loginForm.controls['email'].errors['required']){
+                                        <div class="required"> Email is Required </div>
+                                        }
+                                        @else if (loginForm.controls['email'].errors['email']) {
+                                        <div> Invalid email format </div>
+                                        }
+                                    </div>
+                                    }
+                                </div>
+                                <div class="mb-3 login-form">
+                                    <label for="password" class="form-label">Password<span
+                                            class="required">*</span></label>
+                                    <input type="password" class="form-control" id="password"
+                                        formControlName="password">
+                                    @if( loginForm.controls['password'].errors && (submit ||
+                                    loginForm.controls['password'].touched)){
+                                    <div class="">
+                                        @if(loginForm.controls['password'].errors['required']){
+                                        <div class="required"> Password is Required </div>
+                                        }
+                                    </div>
+                                    }
+                                </div>
+                                <div class="mb-3 form-check d-flex justify-content-between">
+                                    <div>
+                                        <input type="checkbox" class="form-check-input" id="remember-me"
+                                            formControlName="rememberMe">
+                                        <label class="form-check-label forgot-text" for="remember-me">Remember
+                                            Me</label>
+                                    </div>
+                                    <a class="text-decoration-none forgot-text" [routerLink]="['/forgetPassword']">Forgot Password ?</a>
+                                </div>
+                                <div class="text-end login-form">
+                                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                                </div>
+                                <div class="text-center mt-3 px-3">
+                                    <p class="bottom-content">By signing up you agree to our
+                                        <a target="_blank" href="https://ginilytics.com/terms-and-conditions/" class="text-decoration-none">Terms and Conditions</a>
+                                        and
+                                        <a target="_blank" href="https://ginilytics.com/privacy-policy/" class="text-decoration-none">Privacy
+                                            Policy</a>
+                                    </p>
+                                    <p class="mb-0 bottom-content">©PMTool</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="col-lg-6 py-5 rounded-end-2 d-flex justify-content-center align-items-center bg-bluee hide-section">
+                    <div class="p-5 w-75 m-auto">
+                        <figure>
+                            <img src="assets/undraw_drag_re_shc0.svg" class="img-fluid" alt="logo">
+                        </figure>
+                        <div style=" margin-top: 45px; text-align: center;">
+                            <span>New to Jira ? Check out the<a href="#"> jira user's guide.</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

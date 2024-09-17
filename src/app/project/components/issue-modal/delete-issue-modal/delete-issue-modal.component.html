@@ -1,0 +1,22 @@
+<div class="px-4 py-4" style="background-color: white;">
+    <div class="pb-2 text-2xl font-medium leading-normal text-textDarkest d-flex align-items-center">
+        <span role="img" aria-label="danger" class="css-snhnyn" style="--icon-primary-color: var(--ds-icon-danger, #DE350B); --icon-secondary-color: var(--ds-surface, #FFFFFF);">
+            <svg width="30" height="30" viewBox="0 0 24 24" role="presentation">
+                <g fill-rule="evenodd">
+                    <path d="M13.416 4.417a2.002 2.002 0 00-2.832 0l-6.168 6.167a2.002 2.002 0 000 2.833l6.168 6.167a2.002 2.002 0 002.832 0l6.168-6.167a2.002 2.002 0 000-2.833l-6.168-6.167z" 
+                    fill="red">
+                    </path>
+                    <path d="M12 14a1 1 0 01-1-1V8a1 1 0 012 0v5a1 1 0 01-1 1m0 3a1 1 0 010-2 1 1 0 010 2" fill="inherit"></path>
+                </g>
+            </svg>
+        </span>  Delete this comment?
+    </div>
+    <p class="pb-2 whitespace-pre-wrap text-l">Once you delete, it's gone for good.</p>
+    
+    <div class="flex pt-3 d-flex justify-content-end">
+        <button class="btn btn-primary mr-2" (click)="confirm(true)">Delete</button>
+        <button class="btn btn-secondary mr-2 "
+        (click)="confirm(false)"                                     >
+            Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid mt-5">
+  <div class="row mx-3">
+    <div class="col-lg-12">
+      <div class="text-end mb-3 mt-4">
+        <button class="btn btn-primary" (click)="addUserModal()">Add User</button>
+      </div>
+      <div class="card rounded-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title mb-0">Users</h5>
+          <input type="text" name="" id="" [(ngModel)]="searchValue" class="rounded-1 border">
+        </div>
+        <div class="card-body p-4">
+          <div class="table-responsive">
+            <table class="table table-striped border">
+              <thead>
+                <tr>
+                  <!-- <th>#</th> -->
+                  <th (click)="sortTable('name')">Name
+                    <i class="fa-solid fa-angle-up" *ngIf="!sortName"></i>
+                    <i class="fa-solid fa-angle-down" *ngIf="sortName"></i>
+                  </th>
+                  <th (click)="sortTable('email')">Email
+                    <i class="fa-solid fa-angle-up" *ngIf="!sortEmail"></i>
+                    <i class="fa-solid fa-angle-down" *ngIf="sortEmail"></i>
+                  </th>
+                  <th (click)="sortTable('role')">Role
+                    <i class="fa-solid fa-angle-up" *ngIf="!sortRole"></i>
+                    <i class="fa-solid fa-angle-down" *ngIf="sortRole"></i>
+                  </th>
+                  <th class="text-center" scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for( user of filteredData| sort:sortField:sortAscending; track user.id; ){
+                <tr>
+                  <td class="text-left cursor">{{ user.name}}</td>
+                  <td class="text-left">{{ user.email }}</td>
+                  <td class="text-left">{{ user.role }}</td>
+                  <td class="text-center">
+                    <i class="fa fa-pencil-square me-3 text-primary" aria-hidden="true"
+                      style="font-size:16px; cursor:pointer;" (click)="editUserModal(user)"></i>
+                  </td>
+                </tr>
+                }
+                @empty {
+                <td colspan="10" class="text-center"> There are no items. </td>}
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-end" *ngIf="!isSearchEmpty">
+              <nav>
+                <ul class="pagination mb-0">
+                  <li class="page-item" [ngClass]="{ disabled:pageNumber === 1 }">
+                    <a class="page-link" (click)="goToPage(pageNumber - 1)">Previous</a>
+                  </li>
+                  <li class="page-item" [ngClass]="{ active: page === pageNumber }"
+                    *ngFor="let page of totalPageCount()">
+                    <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                  </li>
+                  <li class="page-item"
+                    [ngClass]="{ disabled:pageNumber == totalPageCount()[totalPageCount().length-1] }">
+                    <a class="page-link" (click)="goToPage(pageNumber + 1)">Next</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

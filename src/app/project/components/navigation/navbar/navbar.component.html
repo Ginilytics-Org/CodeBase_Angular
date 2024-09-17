@@ -1,0 +1,100 @@
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-dark" data-bs-theme="light">
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand" routerLink="/project">Project Management Tool</a> -->
+      <a class="navbar-brand mx-4 " routerLink="/project"><img src="assets/logo.png" alt="logo" class="img-fluid logo-width"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Link
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item">Action</a></li>
+              <li><a class="dropdown-item">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Link</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div> -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex me-auto mb-2 mb-lg-0 ms-5 align-items-center">
+                <ul class="navbar-nav">
+                  <li class="nav-item me-3">
+                    <a class="nav-link active" aria-current="page"><i class="fa-solid fa-house me-2"></i>Home</a>
+                  </li>
+                  <li class="nav-item me-3">
+                    <a class="nav-link" [routerLink]="['/project/board']"><i class="fa-solid fa-table-columns me-2"></i>Board</a>
+                  </li>
+                  <li class="nav-item dropdown me-3">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fa-solid fa-chart-area me-2"></i>Project
+                    </a>
+                    <ul class="dropdown-menu me-3">
+                      <li><a class="dropdown-item">Action</a></li>
+                      <li><a class="dropdown-item">Another action</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item">Something else here</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fa-solid fa-users me-2"></i>Teams
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item">Action</a></li>
+                      <li><a class="dropdown-item">Another action</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="ms-2">
+                  <button class="btn btn-primary" (click)="createIssueDialog()">Create Issue</button>
+                </div>
+            </div>
+            
+           
+          <div class="">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-magnifying-glass  mx-3"></i>
+                  <li class="nav-item dropdown me-0">
+                      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="assets/alexander-hipp-iEEBWgY_6lA-unsplash.jpg" alt="user" class="img-fluid me-3 circle-img" /><span class="drop-title">{{tokenDetail.name}}</span>
+                      </a>
+                      <ul class="dropdown-menu drop-menu">
+                        @if(isAppAdmin){
+                          <li><a class="dropdown-item" [routerLink]="['/users']">User Management</a></li>
+                          <li><a class="dropdown-item" [routerLink]="['/category']">Project Category</a></li>
+                        }
+                        <li><a class="dropdown-item" (click)="logout()"> Logout</a></li>
+                      </ul>
+                  </li>
+              </ul>
+        </div>
+    </div>
+      
+      </div>
+  </nav>
+</header>

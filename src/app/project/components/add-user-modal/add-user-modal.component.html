@@ -1,0 +1,50 @@
+<form [formGroup]="userForm" style="background-color: white;" class="p-5">
+    <div class="text-xl  fw-bold">
+        Add User  
+    </div>
+    <div class="mb-3">
+        <label for="InputSprint" class="form-label label p-0">
+            User Name<span id="required"> *</span>
+        </label>
+        <input type="text" class="form-control input w-50" id="InputSprint" formControlName="name" >
+        @if (userForm.get('name')?.hasError('required') && userForm.get('name')?.touched) {
+            <div class="text-danger">
+                User name is required.
+            </div>
+        }
+    </div>
+    <div class="mt-3 form-group">
+        <label class="label">
+            Email<span id="required"> *</span>
+        </label>
+        <input type="text" class="form-control input w-50"  formControlName="email" >
+        @if (userForm.controls['email'].errors && userForm.get('email')?.touched) {
+            @if(userForm.controls['email'].errors['required']){
+                <div class="text-danger"> Email is Required </div>
+                }
+                @else if (userForm.controls['email'].errors['email']) {
+                <div class="text-danger"> Invalid email format </div>
+                }
+        }
+    </div>
+    <div class="mt-3 form-group">
+        <label class="label">
+            Password<span id="required"> *</span>
+        </label>
+        <input type="password" class="form-control input w-50"  formControlName="password" >
+        @if (userForm.get('password')?.hasError('required') && userForm.get('password')?.touched) {
+            <div class="text-danger">
+                Password is required.
+            </div>
+        }
+    </div>
+
+    <div class="mt-3 mb-2 form-group form-action d-flex justify-content-end">
+        <button class="btn btn-primary" (click)="submitForm()" >
+            Submit 
+        </button>
+        <button class="btn btn-secondary ms-3" (click)="cancel()">
+            Cancel
+        </button>
+    </div>
+</form>

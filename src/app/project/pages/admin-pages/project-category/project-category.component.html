@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+@if(!loading){
+    <div class="container-fluid mt-5">
+        <div class="row mx-3">
+            <div class="col-lg-12">
+                <div class="text-end mb-3 mt-4">
+                    <button class="btn btn-primary" (click)="openAddDialog()">Add Category</button>
+                </div>
+                <div class="card rounded-0">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Category</h5>
+                        <input type="text" name="" id="" [(ngModel)]="searchValue" class="rounded-1 border">
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="table-responsive">
+                            <table class="table table-striped border">
+                                <thead>
+                                    <tr>
+                                        <th (click)="sortTable('name')">Name
+                                            <i class="fa-solid fa-angle-up" *ngIf="!sortName"></i>
+                                            <i class="fa-solid fa-angle-down" *ngIf="sortName"></i>
+                                        </th>
+                                        <th (click)="sortTable('description')">Description
+                                            <i class="fa-solid fa-angle-up" *ngIf="!sortDescription"></i>
+                                            <i class="fa-solid fa-angle-down" *ngIf="sortDescription"></i>
+                                        </th>
+                                        <th>Active</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for( category of filteredData| sort:sortField:sortAscending; track category.id; ){
+                                    <tr>
+                                        <td class="text-left">{{ category.name }}</td>
+                                        <td class="text-left">{{ category.description }}</td>
+                                        <td class="text-left">
+                                            @if (category.isActive) {
+                                            <span class="dot bg-success shadow-outline-white border-2 border-dark"></span>
+                                            }
+                                            @else if (!category.isActive) {
+                                            <span class="dot bg-danger shadow-outline-white border-2 border-dark"></span>
+                                            }
+                                        </td>
+                                        <td class="text-left">
+                                            <i class="fa fa-pencil-square me-3 text-primary" aria-hidden="true"
+                                                style="font-size:16px; cursor:pointer;" (click)="openEditDialog(category)"></i>
+                                            <i class="fa fa-trash" aria-hidden="true"
+                                                style="font-size:16px;color:red; cursor:pointer;" (click)="openDeleteDialog(category.id)"></i>
+                                        </td>
+                                    </tr>
+                                    }
+                                    @empty {
+                                    <td colspan="10" class="text-center"> There are no items. </td>}
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end" *ngIf="!isSearchEmpty">
+                                <nav>
+                                  <ul class="pagination mb-0">
+                                    <li class="page-item" [ngClass]="{ disabled:pageNumber === 1 }">
+                                      <a class="page-link" (click)="goToPage(pageNumber - 1)">Previous</a>
+                                    </li>
+                                    <li class="page-item" [ngClass]="{ active: page === pageNumber }"
+                                      *ngFor="let page of totalPageCount()">
+                                      <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+                                    </li>
+                                    <li class="page-item"
+                                      [ngClass]="{ disabled:pageNumber == totalPageCount()[totalPageCount().length-1] }">
+                                      <a class="page-link" (click)="goToPage(pageNumber + 1)">Next</a>
+                                    </li>
+                                  </ul>
+                                </nav>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@else {
+    <div class="overlay">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+}

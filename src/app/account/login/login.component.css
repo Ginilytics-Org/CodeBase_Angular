@@ -1,0 +1,77 @@
+
+:root {
+    --primary:#1a1945;
+    --secondary:#707c84;
+    --yellow:#f0b100;
+    --text-white:#fff;
+    --text-black:#000;
+ }
+
+.logo-width{
+   width:180px;
+}
+
+.card-heading{
+    font-size:28px;
+    font-weight:600;
+    color: var(--primary);
+}
+
+.card-title{
+    font-size: 18px;
+    font-weight: 400;
+    color:var(--secondary);
+    margin-bottom: 20px;
+}
+
+.bottom-content{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--secondary);
+}
+
+.bottom-content a{
+    color: var(--primary);
+}
+
+.bottom-content a:hover{
+    color: var(--yellow);
+}
+
+.forgot-text{
+    font-size:14px;
+}
+
+.card{
+    width: 450px;
+    margin: auto;
+}
+
+@media(max-width:600px){
+    .card{
+        width:100%;
+    }
+}
+
+@media(max-width:991px){
+    .hide-section{
+        display: none!important;
+    }
+}
+
+.bg-bluee{
+     /* background-color:#99beff; */
+      background-image: linear-gradient(25deg, #a0b0ff 11%, #ffe38c 52%); 
+}
+
+
+.login-form .btn-primary{
+    padding: 12px 10px;
+}
+.login-form input{
+    height: 45px;
+}
+
+a:hover{
+    color: #0300ce;
+}

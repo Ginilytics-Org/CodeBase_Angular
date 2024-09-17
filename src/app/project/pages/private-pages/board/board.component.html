@@ -1,0 +1,197 @@
+@if(!loading){
+    <div class="mx-3">
+        <div class="d-flex justify-content-between align-items-center my-4">
+            <h1 class="dashboard-heading">Board</h1>
+            <span>
+                <button (click)="createIssueDialog()" class="btn btn-primary">Create Issue</button>
+            </span>
+        </div>
+        
+        <div class="d-flex justify-content-between align-item-center">
+            <div>
+        <input type="text" name="" id="" (keyup)="search()" [(ngModel)]="searchValue" placeholder="Search this board         🔍 " class="me-3" >
+          <mat-form-field appearance="fill" class="smaller">
+            <mat-label>Users</mat-label>
+            <mat-select [formControl]="user" multiple>
+              @for (user of users; track user.userId) {
+                <mat-option [value]="user.userId" class="smaller">{{user.userName}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+            <span>
+                    <button class="btn btn-primary mx-2"(click)="exportToCSV()">Export</button>  
+                <span class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Filters
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" (click)="myIssues()">Only My Issue</a></li>
+                      <li><a class="dropdown-item"(click)="ignoreResovled()">Ignore Resolved</a></li>
+                    </ul>
+                  </span>
+                
+                <button class="btn btn-primary mx-2"(click)="clearFilter()">Clear filter</button>
+            </span>
+        </div>
+        <div cdkDropListGroup class="d-flex">
+            <div class="example-container">
+                <div class="header-section">
+                    <h4 class="heading mb-0">To do</h4>
+                    <span class="heading ms-3">{{todo?.length}}</span>
+                </div>
+                <div cdkDropList id="To do" [cdkDropListData]="todo" class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    @for (item of todo; track item) {
+                    <div cdkDrag class="mt-1" [cdkDragData]="item" (click)="openDialog(item)">
+                        <div class="card border-0 shadow my-2 ms-2">
+                            <!-- @if(item.path !="0"){
+                                <figure>
+                                    <img [src]="item.path" alt="card-img" class="img-fluid">
+                                </figure>
+                            } -->
+                            <div class="position-relative">
+                                <span class="card-title">{{item.epicTitle}}</span>
+                                <p class="card-text text-truncate mt-2" style="max-width: 220px;">{{item.title}}</p>
+                                <i class="fa-solid fa-arrow-up icon-arrow"></i>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                   <div>
+                                        <span class="card-text">{{item.projectIssueKeyId}}</span>
+                                        <span class="card-text"><i class="fa-regular fa-comment mx-2" matTooltip="Comment Count"></i>{{item.commentCount}}</span>
+                                        <span class="card-text"><i class="fa fa-file-text mx-2" matTooltip="History Count"></i>{{item.historyCount}}</span>
+                                   </div>
+                                    <div class="">
+                                        <span class="card-text">{{assigneeName(item.assignTo)}}</span>
+                                    <!-- <img src="assets/alexander-hipp-iEEBWgY_6lA-unsplash.jpg" alt="user-pic" class="img-fluid circle-img"> -->
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="example-box" cdkDrag>{{item}}</div> -->
+                    }
+                </div>
+            </div>
+    
+            <div class="example-container">
+                <div class="header-section">
+                    <h4 class="heading mb-0 inprogress">InProgress</h4>
+                    <span class="heading ms-3">{{InProgress?.length}}</span>
+                </div>
+                <div cdkDropList id="In Progress" [cdkDropListData]="InProgress" class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    @for (item of InProgress; track item) {
+                        <div cdkDrag class="mt-1" [cdkDragData]="item" (click)="openDialog(item)">
+    
+                            <div class="card border-0 shadow my-2 ms-2">
+                                <!-- @if(item.path !="0"){
+                                    <figure>
+                                        <img [src]="item.path" alt="card-img" class="img-fluid">
+                                    </figure>
+                                } -->
+                                <div class="position-relative">
+                                    <span class="card-title">{{item.epicTitle}}</span>
+                                    <p class="card-text text-truncate mt-2" style="max-width: 220px;">{{item.title}}</p>
+                                    <i class="fa-solid fa-arrow-up icon-arrow"></i>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                       <div>
+                                            <span class="card-text">{{item.projectIssueKeyId}}</span>
+                                            <span class="card-text"><i class="fa-regular fa-comment mx-2" matTooltip="Comment Count"></i>{{item.commentCount}}</span>
+                                            <span class="card-text"><i class="fa fa-file-text mx-2" matTooltip="History Count"></i>{{item.historyCount}}</span>
+                                       </div>
+                                        <div class="">
+                                            <span class="card-text">{{assigneeName(item.assignTo)}}</span>
+                                        <!-- <img src="assets/alexander-hipp-iEEBWgY_6lA-unsplash.jpg" alt="user-pic" class="img-fluid circle-img"> -->
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+    
+            <div class="example-container">
+                <div class="header-section">
+                    <h4 class="heading mb-0 qa">QA</h4>
+                    <span class="heading ms-3">{{QA?.length}}</span>
+                </div>
+                <div cdkDropList id="QA" [cdkDropListData]="QA" class="example-list" (cdkDropListDropped)="drop($event)">
+                    @for (item of QA; track item) {
+                        <div cdkDrag class="mt-1"  [cdkDragData]="item" (click)="openDialog(item)">
+    
+                            <div class="card border-0 shadow my-2 ms-2">
+                                <!-- @if(item.path !="0"){
+                                    <figure>
+                                        <img [src]="item.path" alt="card-img" class="img-fluid">
+                                    </figure>
+                                } -->
+                                <div class="position-relative">
+                                    <span class="card-title">{{item.epicTitle}}</span>
+                                    <p class="card-text text-truncate mt-2" style="max-width: 220px;">{{item.title}}</p>
+                                    <i class="fa-solid fa-arrow-up icon-arrow"></i>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                            <span class="card-text">{{item.projectIssueKeyId}}</span>
+                                            <span class="card-text"><i class="fa-regular fa-comment mx-2" matTooltip="Comment Count"></i>{{item.commentCount}}</span>
+                                            <span class="card-text"><i class="fa fa-file-text mx-2" matTooltip="History Count"></i>{{item.historyCount}}</span>
+                                    </div>
+                                        <div class="">
+                                            <span class="card-text">{{assigneeName(item.assignTo)}}</span>
+                                            <!-- <img src="assets/alexander-hipp-iEEBWgY_6lA-unsplash.jpg" alt="user-pic" class="img-fluid circle-img"> -->
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+    
+            <div class="example-container">
+                <div class="header-section">
+                    <h4 class="heading mb-0 done">Done</h4>
+                    <span class="heading ms-3">{{done?.length}}</span>
+                </div>
+                <div cdkDropList id="Done" [cdkDropListData]="done" class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    @for (item of done; track item) {
+                        <div cdkDrag class="mt-1" [cdkDragData]="item" (click)="openDialog(item)">
+    
+                            <div class="card border-0 shadow my-2 ms-2">
+                                <!-- @if(item.path !="0"){
+                                    <figure>
+                                        <img [src]="item.path" alt="card-img" class="img-fluid">
+                                    </figure>
+                                } -->
+                                <div class="position-relative">
+                                    <span class="card-title">{{item.epicTitle}}</span>
+                                    <p class="card-text text-truncate mt-2" style="max-width: 220px;">{{item.title}}</p>
+                                    <i class="fa-solid fa-arrow-up icon-arrow"></i>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                       <div>
+                                            <span class="card-text">{{item.projectIssueKeyId}}</span>
+                                            <span class="card-text"><i class="fa-regular fa-comment mx-2" matTooltip="Comment Count"></i>{{item.commentCount}}</span>
+                                            <span class="card-text"><i class="fa fa-file-text mx-2" matTooltip="History Count"></i>{{item.historyCount}}</span>
+                                       </div>
+                                        <div class="">
+                                            <span class="card-text">{{assigneeName(item.assignTo)}}</span>
+                                            <!-- <img src="assets/alexander-hipp-iEEBWgY_6lA-unsplash.jpg" alt="user-pic" class="img-fluid circle-img"> -->
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@else{
+    <div class="overlay">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+}

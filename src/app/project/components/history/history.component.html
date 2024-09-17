@@ -1,0 +1,40 @@
+@if (!loading) {
+    <div class="relative">
+        @for (history of histories; track history) {
+        <div>
+            <div class="inline-block">
+                {{ history.name }} {{ history.action }} {{ getPrefixForAction(history.fieldChanged) }}
+                {{ history.fieldChanged }}.
+                <!-- <span class="text-13" style="margin-left: 8px;">{{ history.modifiedDate }}</span> -->
+                <span class="text-secondary"> {{ calculateElapsedTime(history) }}</span>
+            </div>
+            @if (history.action!="Created" && history.action!="deleted") {
+            <div>
+                <div class="pb-2 d-flex justify-content-start align-items-center">
+                    <span [innerHTML]="getFormattedValue(history.previousValue)"></span>
+                    @if (history.fieldChanged === 'TimeEstimate' || history.fieldChanged === 'TimeSpent') {
+                    <span>
+                        Hr
+                    </span>
+                    }
+                    <span class="gap">→</span>
+                    <span [innerHTML]="getFormattedValue(history.currentValue)"></span>
+                    @if (history.fieldChanged === 'TimeEstimate' || history.fieldChanged === 'TimeSpent') {
+                    <span>
+                        Hr
+                    </span>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+        }
+    </div>
+}
+@else {
+    <div class="overlay">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+}

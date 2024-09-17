@@ -1,0 +1,245 @@
+@if(!loading){
+<div class="container-fluid">
+    <h2>Backlog</h2>
+    <div class="row d-flex justify-content-between">
+        <div>Filters</div>
+        <div>
+            <label class="toggle d-flex align-item-center">
+                <span class="me-2">Epic:</span>
+                <input type="checkbox" (change)="toggleEpic = !toggleEpic">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+    <div cdkDropListGroup>
+        <div class="row">
+            @if (toggleEpic) {
+            <div class="col-3 background my-3">
+                Epic
+                @for (issue of epicList; track issue.id) {
+                <div class="mt-3 d-flex justify-content-between bg-light issue" (click)="openDialog(issue)" cdkDropList
+                    [cdkDropListData]="currentSprintIssue" (cdkDropListDropped)="epicdrop($event,issue.id)">
+                    <div>{{issue.title}}</div>
+                </div>
+                }
+                @if (toggleCreateEpic) {
+                <div class="row">
+                    <input type="text" [(ngModel)]="CreateEpic.title" placeholder="Add Epic">
+                    <div class=" d-flex justify-content-end m-3">
+                        <i class="fa-solid fa-check p-2 bg-white shadow me-2 ms-1 h-50 rounded-1 icon-index ms-5"
+                            (click)="addEpic()"></i>
+                        <i class="fa-solid fa-x p-2 bg-white shadow h-50 rounded-1 icon-index "
+                            (click)="toggleCreateEpic = false"></i>
+                    </div>
+                </div>
+                }
+                @else {
+                <div (click)="toggleCreateEpic = true">
+                    <i class="fa-solid fa-plus"></i>
+                    Create Epic
+                </div>
+                }
+            </div>
+            }
+            <div class="col">
+                <div class="row background m-3">
+                    <div cdkDropList [cdkDropListData]="currentSprintIssue"
+                        (cdkDropListDropped)="drop($event,currentSprintData?.[0]?.id)">
+                        <div class="d-flex justify-content-between pt-3">
+                            <div class="d-flex">
+                                <div (click)="toggleSprint = !toggleSprint" class="me-2">
+                                    @if(toggleSprint){
+                                    <i class="fa-solid fa-angle-down angle-font ng-star-inserted"></i>
+                                    }
+                                    @else {
+                                    <i class="fa-solid fa-angle-right angle-font ng-star-inserted"></i>
+                                    }
+                                </div>
+                                <h5 class="d-inline">{{currentSprintData?.[0]?.name}}</h5>
+                                @if (currentSprintData?.[0]?.isActive) {
+                                {{formatDateString(currentSprintData[0].startDate)}} -
+                                {{formatDateString(currentSprintData[0].endDate)}}
+                                }
+                            </div>
+                            <div>
+                                @if (currentSprintData?.[0]?.isActive) {
+                                <button class="btn btn-primary btn-sm " (click)="completeSprintModel()">Complete
+                                    Sprint</button>
+                                }
+                                @else {
+                                <button class="btn btn-primary btn-sm"
+                                    (click)="openSprintModel(currentSprintData[0],true)">Start Sprint</button>
+                                }
+                                <button class="btn btn-primary btn-sm ms-3" (click)="createSprint()">Create
+                                    Sprint</button>
+                            </div>
+                        </div>
+                        @if (toggleSprint) {
+                        @for (issue of currentSprintIssue; track issue.id) {
+                        <div class="my-2 mx-3 bg-light issue" (click)="openDialog(issue)" cdkDrag [cdkDragData]="issue">
+                            <div class="d-flex">
+                                <p class="projectIssueKeyId">{{issue.projectIssueKeyId}}</p>
+                                <p class="issueTitle text-truncate">{{issue.title}}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="epicTitle text-truncate">{{issue.epicTitle}}</p>
+                                <p class="priority">{{issue.priority}}</p>
+                                <p class="status">{{issue.status}}</p>
+                                <p class="assignTo">{{issue.assignTo}}</p>
+                            </div>
+                        </div>
+                        } }
+                    </div>
+                    @if (toggleCreateSprint) {
+                    <div class="row mt-2 mx-3 d-flex">
+                        <select class="col-2" [formControl]="task">
+                            @for (item of issueTypes; track item) {
+                            <option [value]="item">{{ item }}</option>
+                            }
+                        </select>
+                        <input type="text" class="col-9" [formControl]="title">
+                        <div class="col-1 d-flex justify-content-end">
+                            <i class="fa-solid fa-check p-2 bg-white shadow me-2 ms-1 h-50 rounded-1 icon-index"
+                                (click)="addIssue(false,currentSprintData?.[0]?.id)"></i>
+                            <i class="fa-solid fa-x p-2 bg-white shadow h-50 rounded-1 icon-index"
+                                (click)="toggleCreateSprint = false"></i>
+                        </div>
+                    </div>
+                    }
+                    @else {
+                    <div (click)="toggleCreateSprint = true">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Issue
+                    </div>
+                    }
+                </div>
+                <div class="row background m-3">
+                    <div cdkDropList (cdkDropListDropped)="drop($event,null)" [cdkDropListData]="issueBacklogList">
+                        <div class="d-flex pt-3">
+                            <div (click)="toggleBacklog = !toggleBacklog" class="me-2">
+                                @if(toggleBacklog){
+                                <i class="fa-solid fa-angle-down angle-font ng-star-inserted"></i>
+                                }
+                                @else {
+                                <i class="fa-solid fa-angle-right angle-font ng-star-inserted"></i>
+                                }
+                            </div>
+                            <h5>Backlog</h5>
+                        </div>
+                        @if (toggleBacklog) {
+                        @for (issue of issueBacklogList; track issue.id) {
+                        <div cdkDrag [cdkDragData]="issue"
+                            class="mt-2 mx-3 d-flex justify-content-between bg-light issue" (click)="openDialog(issue)">
+                            <div class="d-flex">
+                                <p class="projectIssueKeyId">{{issue.projectIssueKeyId}}</p>
+                                <p class="issueTitle text-truncate">{{issue.title}}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="epicTitle text-truncate">{{issue.epicTitle}}</p>
+                                <p class="priority">{{issue.priority}}</p>
+                                <p class="status">{{issue.status}}</p>
+                                <p class="assignTo">{{issue.assignTo}}</p>
+                            </div>
+                        </div>
+                        } }
+                    </div>
+                    @if (toggleCreateBacklog) {
+                    <div class="row">
+                        <select class="col-2" [formControl]="task">
+                            @for (item of issueTypes; track item) {
+                            <option [value]="item">{{ item }}</option>
+                            }
+                        </select>
+                        <input type="text" class="col-9" [formControl]="title">
+                        <div class="col-1 d-flex justify-content-end">
+                            <i class="fa-solid fa-check p-2 bg-white shadow me-2 ms-1 h-50 rounded-1 icon-index"
+                                (click)="addIssue(true,currentSprintData?.[0]?.id)"></i>
+                            <i class="fa-solid fa-x p-2 bg-white shadow h-50 rounded-1 icon-index"
+                                (click)="toggleCreateBacklog = false"></i>
+                        </div>
+                    </div>
+                    }
+                    @else {
+                    <div (click)="toggleCreateBacklog = true">
+                        <i class="fa-solid fa-plus"></i>
+                        Create Issue
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        @for (sprint of futureSprints; track sprint) {
+        <div class="row background1 mt-3 me-3">
+            <div class="d-flex justify-content-between pt-3">
+                <div class="d-flex">
+                    <div (click)="sprint.toggleSprint = !sprint.toggleSprint" class="me-2">
+                        @if(sprint.toggleSprint){
+                        <i class="fa-solid fa-angle-down angle-font ng-star-inserted"></i>
+                        }
+                        @else {
+                        <i class="fa-solid fa-angle-right angle-font ng-star-inserted"></i>
+                        }
+                    </div>
+                    <h5 class="d-inline me-3">{{sprint.name}}</h5>
+                    {{formatDateString(sprint.startDate)}} -
+                    {{formatDateString(sprint.endDate)}}
+                </div>
+                <button class="btn btn-primary btn-sm" (click)="openSprintModel(sprint,false)">Start Sprint</button>
+            </div>
+            <div cdkDropList [cdkDropListData]="sprint.issue?sprint.issue:[]"
+                (cdkDropListDropped)="drop($event,sprint.id)">
+                @if(sprint.toggleSprint){
+                <div>
+                    @for (issue of sprint.issue; track issue.id) {
+                    <div cdkDrag [cdkDragData]="issue"
+                        class="mt-2 mx-3 d-flex justify-content-between bg-light issue"
+                        (click)="openDialog(issue)">
+                        <div class="d-flex">
+                            <p class="projectIssueKeyId">{{issue.projectIssueKeyId}}</p>
+                            <p class="issueTitle text-truncate">{{issue.title}}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="epicTitle text-truncate">{{issue.epicTitle}}</p>
+                            <p class="priority">{{issue.priority}}</p>
+                            <p class="status">{{issue.status}}</p>
+                            <p class="assignTo">{{issue.assignTo}}</p>
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+            @if (sprint.toggleCreate) {
+            <div class="row">
+                <select class="col-2" [formControl]="task">
+                    @for (item of issueTypes; track item) {
+                    <option [value]="item">{{ item }}</option>
+                    }
+                </select>
+                <input type="text" class="col-9" [formControl]="title">
+                <div class="col-1 d-flex justify-content-end">
+                    <i class="fa-solid fa-check p-2 bg-white shadow me-2 ms-1 h-50 rounded-1 icon-index"
+                        (click)="addIssue(false,sprint.id)"></i>
+                    <i class="fa-solid fa-x p-2 bg-white shadow h-50 rounded-1 icon-index"
+                        (click)="sprint.toggleCreate = false"></i>
+                </div>
+            </div>
+            }
+            @else {
+            <div (click)="sprint.toggleCreate = true">
+                <i class="fa-solid fa-plus"></i>
+                Create Issue
+            </div>
+            }
+        </div>
+        }
+    </div>
+</div>
+}
+@else {
+<div class="overlay">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+}

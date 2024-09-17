@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card p-4 rounded-3 shadow border-0">
+                <form class="" [formGroup]="issueForm">
+                    <h2 class="dashboard-heading">Create Issue</h2>
+                    <div class="row">
+                        <div>
+                            <label for="title">Short summary<span class="required">*</span></label>
+                            <input type="text" name="title" id="title" formControlName="title">
+                            @if(issueForm.get('title')?.hasError('required') && issueForm.get('title')?.touched){
+                                <span class="required">
+                                    Title is required.
+                                </span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="d-block" for="type">Issue type</label>
+                            <select name="type" id="type" formControlName="type">
+                                <option value="Bug">Bug</option>
+                                <option value="Story">Story</option>
+                                <option value="Task">Task</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="d-block" for="priority">Issue priority</label>
+                            <select name="priority" id="priority" formControlName="priority">
+                                <option value="Lowest">Lowest</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Highest">Highest</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="d-block" for="timeEstimate">Estimate time</label>
+                            <input type="text" name="timeEstimate" id="timeEstimate" formControlName="timeEstimate">
+                            @if(issueForm.get('timeEstimate')?.hasError('required') && issueForm.get('timeEstimate')?.touched){
+                                <span class="required">
+                                    Estimate time is required.
+                                </span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="d-block" for="reportTo">Reporter</label>
+                            <input type="text" name="reportTo" id="reportTo" formControlName="reportTo" [readOnly]="true">
+                        </div>
+                        <div class="col-6">
+                            <label class="d-block" for="assignTo">Assignee</label>
+                            <select name="assignTo" id="assignTo" formControlName="assignTo">
+                                @for (user of users; track user){
+                                    <option value=null>Unassigned</option>
+                                    <option value={{user.userId}}>{{user.userName}}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="description">Description</label>
+                        <angular-editor name="description" id="description" [config]="editorConfig" formControlName="description"></angular-editor>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary me-2" (click)="addIssue()">Create Issue</button>
+                        <button class="btn btn-outline-primary"(click)="cancel()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

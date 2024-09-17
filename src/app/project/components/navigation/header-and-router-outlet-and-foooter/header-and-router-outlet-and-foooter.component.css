@@ -1,0 +1,20 @@
+.sidebar-left{
+    position: fixed;
+    left:0;
+    width:250px;
+    transition: width ease-in-out 1s;
+}
+
+.content-right{
+    margin-left: 17rem;
+    padding-top:4rem;
+    transition: margin-left ease-in-out 1s;
+}
+
+.sidebar-collapse{
+    width: 80px!important;
+}
+
+.content-right-expand{
+    margin-left: 80px!important;
+}

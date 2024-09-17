@@ -1,0 +1,10 @@
+<app-navbar></app-navbar>
+<div class="position-relative">
+    <div class="sidebar-left" [ngClass]="{ 'sidebar-collapse': isSidebarCollapsed }">
+        <app-sidebar (dataToParent)="receiveDataFromChild($event)"> </app-sidebar>
+    </div>
+    
+</div>
+<div class="content-right" [ngClass]="{'content-right-expand': isSidebarCollapsed }">
+    <router-outlet></router-outlet>
+</div>

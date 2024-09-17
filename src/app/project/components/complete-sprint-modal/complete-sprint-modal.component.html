@@ -1,0 +1,38 @@
+<div class="bg-light container p-3">
+    <div>
+        <div class="">
+            Complete 
+            <span>
+                {{sprintData?.name}}
+            </span> 
+        </div>
+    </div>
+    <div class="">
+        <div class="">
+            <p>The Sprint Contains:</p>
+            <ul style="list-style-type:disc" class="">
+                <li>
+                    <span class="text-success fw-bold">{{completedIssue}}</span> Completed Issues
+                </li>
+                <li>
+                    <span class="text-danger fw-bold">{{openIssue}}</span> Open Issues
+                </li>
+            </ul>
+
+        </div>
+        <div class="my-3 ">
+            <label for="Duration" class="fw-bold">
+                Move open issue to next Sprint:
+            </label>
+            <select class="form-select fw-bold outline" [(ngModel)]="selectedOption">
+                <option hidden value="0">--Select One--</option>
+                <option value="1">Next Sprint</option>
+                <option value="2">Backlog</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary me-2" (click)="submit()">Complete Sprint</button>
+            <button class="btn btn-outline-primary"(click)="cancel()">Cancel</button>
+        </div>
+    </div>
+</div>

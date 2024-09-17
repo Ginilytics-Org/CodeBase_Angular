@@ -1,0 +1,35 @@
+<div class="container">
+    <div>Add Category</div>
+    <form [formGroup]="categoryForm">
+        <div>
+            <label>Category name</label>
+            <input type="text" formControlName="name">
+            @if (categoryForm.get('name')?.hasError('required') && categoryForm.get('name')?.touched) {
+                <span class="error">Name is required.</span>
+            }
+            @else if (categoryForm.get('name')?.hasError('minlength') && categoryForm.get('name')?.touched) {
+                <span class="error">Name must be at least 2 characters long.</span>
+            }
+            @else if (categoryForm.get('name')?.hasError('maxlength') && categoryForm.get('name')?.touched) {
+                <span class="error">Name must be at most 50 characters long.</span>
+            }
+        </div>
+        <div>
+            <label>Description</label>
+            <input type="text" formControlName="description">
+            @if (categoryForm.get('description')?.hasError('required') && categoryForm.get('description')?.touched) {
+                <span class="error">Description is required.</span>
+            }
+            @else if (categoryForm.get('description')?.hasError('minlength') && categoryForm.get('description')?.touched) {
+                <span class="error">Description must be at least 4 characters long.</span>
+            }
+            @else if (categoryForm.get('description')?.hasError('maxlength') && categoryForm.get('description')?.touched) {
+                <span class="error">Description must be at most 250 characters long.</span>
+            }
+        </div>
+        <div>
+            <button class="btn-primary" (click)="submit()">Submit</button>
+            <button (click)="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

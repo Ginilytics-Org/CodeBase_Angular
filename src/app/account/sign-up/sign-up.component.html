@@ -1,0 +1,63 @@
+<div class="vh-100 d-flex justify-content-center align-items-center flex-column login-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mx-auto">
+               <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <h3 class="card-heading text-center">Welcome</h3>
+                        <h5 class="card-title text-center">Sign-up.</h5>
+                        <form [formGroup]="registerForm" (ngSubmit)="signUp()">
+                            <div class="mb-3 mt-3">
+                                <label for="name" class="form-label">Username<span class="required">*</span></label>
+                                <input type="text" class="form-control" id="email" formControlName="name">
+                                @if(registerForm.controls['name'].errors && (submit || registerForm.controls['name'].touched)){
+                                <div class="">
+                                    <div class="required">Username is Required </div>
+                                </div>
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email<span class="required">*</span></label>
+                                <input type="email" class="form-control" id="email" formControlName="email" [attr.disabled]="isEmailField">
+                                @if(registerForm.controls['email'].errors && (submit || registerForm.controls['email'].touched)){
+                                <div class="">
+                                    @if(registerForm.controls['email'].errors['required']){
+                                    <div class="required"> Email is Required </div>
+                                    }
+                                    @else if (registerForm.controls['email'].errors['email']) {
+                                    <div> Invalid email format </div>
+                                    }
+                                </div>
+                                }
+                    
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password<span class="required">*</span></label>
+                                <input type="password" class="form-control" id="password" formControlName="password">
+                                @if( registerForm.controls['password'].errors && (submit || registerForm.controls['password'].touched)){
+                                <div class="">
+                                    @if(registerForm.controls['password'].errors['required']){
+                                    <div class="required"> Password is Required </div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <div class="text-end">
+                               <button type="submit" class="btn btn-primary w-100">Sign-up</button>
+                             </div>
+                             <div class="text-center mt-3 px-3">
+                                <p class="bottom-content">By signing up you agree to our
+                                    <a target="_blank" href="/conditions" class="text-decoration-none">Terms of Service</a>
+                                    and
+                                    <a target="_blank" href="/policies" class="text-decoration-none">Privacy Policy</a>
+                                </p>
+                                <p class="mb-0 bottom-content">©PMTool</p>
+                             </div>
+                        </form>   
+                    </div>
+               </div>
+            </div>
+        </div>
+       
+    </div>
+</div>

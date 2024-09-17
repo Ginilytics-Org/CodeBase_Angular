@@ -1,0 +1,157 @@
+<form class="container-fluid" [formGroup]="issueForm"
+    style="background-color: white; width: 1080px;">
+    <div class="d-flex align-items-center">
+        <div>{{issue.projectIssueKeyId}}</div>
+        <div class="flex-grow-1"></div>
+        <button (click)="openDeleteDialog()" class="btn btn-primary me-2">Delete</button>
+        <button (click)="resize()" class="btn-primary btn me-2">Resize</button>
+        <button (click)="cancel()" class="btn-primary btn  me-2">Close</button>
+    </div>
+    <div class="row">
+        <div class="col-md-8 pr-md-4 scrollbar">
+            <div>
+                <label for="title">Title</label> <br>
+                <input type="text" name="title" id="title" formControlName="title" style="width: 100%;">
+                @if(issueForm.get('title')?.hasError('required') && issueForm.get('title')?.touched){
+                <div>
+                    Title is required.
+                </div>
+                }
+                <!-- dateForm.get('startDate').hasError('pattern') && dateForm.get('startDate').touched -->
+            </div>
+            <div class="">
+                <div class="justifycontent">
+                    <label for="description">Description</label>
+                    <div>
+                        <input type="file" id="fileInput" (change)="UploadFile($event)" multiple hidden>
+                        <label for="fileInput" class="btn btn-primary">
+                            <i class="fa fa-paperclip"></i> Attach File
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <angular-editor name="description" id="description"
+                    [mentionConfig]="{ items: users, labelKey: 'userName' }" [mentionListTemplate]="mentionListTemplate"
+                    [config]="editorConfig" formControlName="description"></angular-editor>
+            </div>
+            <div class="pt-4 pb-2">
+                @if (documentData?.length !=0) {
+                <span>Attachments</span>
+                <div class="border p-3">
+                    @for (document of documentData; track document){
+                        <div class="card-body mb-4">
+                            <h5 class="card-title">{{document.fileName}}</h5>
+                            <p class="card-text"></p>
+                            <div class="file-input-containers d-flex justify-content-center">
+                                <button type="button" style="color: black;" class="btn mr-1"
+                                    (click)="previewFile(document.path,document.contentType)">
+                                    view
+                                </button>
+                                <button type="button" style="color: rgb(61, 152, 217);" class="btn mr-1"
+                                    (click)="downloadFile(document.path,document.contentType,document.fileName)">
+                                    download
+                                </button>
+                                <button type="button" class="btn" style="color:rgb(239, 79, 79);"
+                                    (click)="cancelFile(document.id)">
+                                    delete
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                }
+            </div>
+            <div class="pb-4" style="display: flex; cursor: pointer;">
+                <div class="btn">Show: </div>&nbsp;&nbsp;
+                <div class="btn" (click)="changeView('All')">All</div>&nbsp;&nbsp;
+                <div class="btn" (click)="changeView('Comments')">Comments</div>
+                <div class="btn" (click)="changeView('History')">History</div>
+            </div>
+
+            @if(selectedView === 'All'){
+            <app-history-comment [issue]="issue"></app-history-comment>
+            }
+            @else if (selectedView === 'Comments') {
+            <app-comment [issue]="issue"></app-comment>
+            }
+            @else if (selectedView === 'History') {
+            <app-history [issue]="issue"></app-history>
+            }
+
+        </div>
+        <div class="col-4 pt-1 mt-3">
+            <div>
+                <div class="justifycontent m-2">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" formControlName="status">
+                        <option value="To do">ToDo</option>
+                        <option value="In Progress">In-Progress</option>
+                        <option value="QA">QA</option>
+                        <option value="Done">Done</option>
+                    </select>
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="sprintName">Sprint</label>
+                    <input type="text" value="Sprint" formControlName="sprintName"[readOnly]="true">
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="reportTo">Reporter</label>
+                    <input type="text" value="reportTo" formControlName="reportTo"[readOnly]="true">
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="assignTo">Assignees</label>
+                    <select name="assignTo" id="assignTo" formControlName="assignTo">
+                        @for (user of users; track user){
+                            <option value="{{user.userId}}">{{user.userName}}</option>
+                        }
+                        <option value=null >Unassigned</option>
+                    </select>
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="timeEstimate">Estimate Time</label>
+                    <input type="text" value="0" formControlName="timeEstimate">
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="timeSpent">Spent Time</label>
+                    <input type="text" value="0" formControlName="timeSpent">
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority" formControlName="priority">
+                        <option value="Lowest">Lowest</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Highest">Highest</option>
+                    </select>
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" name="startDate" id="startDate" formControlName="startDate">
+                </div>
+                <div class="justifycontent m-2">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" name="dueDate" id="dueDate" formControlName="dueDate">
+                </div>
+            </div>
+            <div class="mt-3 pt-3">
+                <div>
+                    Created Date
+                </div>
+                <div>
+                    Updated Date
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="submit" (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<ng-template #mentionListTemplate let-item="item">
+    <img class="mr-3" src="https://avatars1.githubusercontent.com/u/42143139?s=180&v=4" alt="" width="30" height="30"/>
+    &nbsp;
+    <span>{{ item.userName }}</span>
+</ng-template>

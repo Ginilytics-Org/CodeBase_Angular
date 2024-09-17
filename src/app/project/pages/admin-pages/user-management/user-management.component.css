@@ -1,0 +1,10 @@
+.cursor{
+    cursor: pointer;
+}
+.card-header{
+    background-color:#eef5fc;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-bg-type:#f5faff;
+}

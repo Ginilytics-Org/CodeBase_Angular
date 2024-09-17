@@ -1,0 +1,111 @@
+<app-navbar></app-navbar>
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-lg-12">
+                <div class="card border-0 shadow rounded-3 mt-5">
+                    <div class="card-header">
+                        <h1 class="dashboard-subheading my-1">Add Project</h1>
+                    </div>
+                    <div class="card-body">
+                        <form class="row g-3" [formGroup]="projectForm">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" formControlName="name">
+                                @if( projectForm.controls['name'].errors && (submit || projectForm.controls['name'].touched)){
+                                <div class="text-danger">
+                                    <div> Project Name is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="access" class="form-label">Access</label>
+                                <select id="access" class="form-select" formControlName="access">
+                                    <option selected value="Public">Public</option>
+                                    <option value="Private">Private</option>
+                                </select>
+                                @if( projectForm.controls['access'].errors && (submit || projectForm.controls['access'].touched)){
+                                <div class="text-danger">
+                                    <div> Access is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="key" class="form-label">Key</label>
+                                <input type="text" class="form-control" id="key" formControlName="key">
+                                @if( projectForm.controls['key'].errors && (submit || projectForm.controls['key'].touched)){
+                                    <div class="text-danger">
+                                        <div> Key is Required *</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category" class="form-label">Category</label>
+                                <select id="category" class="form-select" formControlName="categoryId">
+                                    @for (category of categories; track category.id){
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    }
+                                </select>
+                                @if( projectForm.controls['categoryId'].errors && (submit || projectForm.controls['categoryId'].touched)){
+                                    <div class="text-danger">
+                                        <div> Category is Required *</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="clientName" class="form-label">Client Name</label>
+                                <input type="text" class="form-control" id="clientName" formControlName="clientName">
+                                @if( projectForm.controls['clientName'].errors && (submit || projectForm.controls['clientName'].touched)){
+                                    <div class="text-danger">
+                                        <div> Client Name is Required *</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="clientCountry" class="form-label">Client Country</label>
+                                <input type="text" class="form-control" id="clientCountry" formControlName="clientCountry">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="startDate" formControlName="startDate">
+                                @if( projectForm.controls['startDate'].errors && (submit || projectForm.controls['startDate'].touched)){
+                                    <div class="text-danger">
+                                        <div>Start Date is Required *</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="endDate" formControlName="endDate">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="domain" class="form-label">Domain</label>
+                                <input type="text" class="form-control" id="domain" formControlName="domain">
+                                @if( projectForm.controls['domain'].errors && (submit || projectForm.controls['domain'].touched)){
+                                    <div class="text-danger">
+                                        <div> Domain is Required *</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="projectTimeline" class="form-label">Project Timeline</label>
+                                <input type="text" class="form-control" id="projectTimeline" formControlName="projectTimeline">
+                                @if( projectForm.controls['projectTimeline'].errors && (submit || projectForm.controls['projectTimeline'].touched)){
+                                    <div class="text-danger">
+                                        <div> Project Timeline is Required *</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="document" class="form-label">Project Document</label>
+                                <input type="file" class="form-control" id="document" (change)="storeFile($event)" >
+                            </div>
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-primary" (click)="addProject()" [disabled]="submit">Create Project</button>
+                                <button class="btn btn-primary ms-3" [routerLink]="['/project']">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

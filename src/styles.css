@@ -1,0 +1,134 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+   --primary:#1a1945;
+   --secondary:#707c84;
+   --yellow:#f0b100;
+   --text-white:#fff;
+   --text-black:#000;
+   --text-primary:#212529;
+}
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: "Roboto", sans-serif;
+ }
+
+.btn-primary{
+    background-color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-white);
+    border:1px solid var(--primary);
+}
+
+.btn-primary:hover{
+    background-color: var(--yellow);
+    color: var(--text-white);
+    border:1px solid var(--yellow);
+}
+
+.btn-outline-primary{
+    background-color: var(--text-white);
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--primary);
+    border:1px solid var(--primary);
+}
+
+.btn-outline-primary:hover{
+    background-color: var(--primary);
+    color: var(--text-white);
+    border:1px solid var(--primary);
+}
+
+a{
+    color: var(--primary);
+}
+
+a:hover{
+    color: var(--yellow);
+}
+
+.form-label{
+    font-size: 14px;
+    font-weight:500;
+    color: var(--text-primary);
+}
+
+ label{
+    font-size: 14px;
+    font-weight:500;
+    color: var(--text-primary);
+}
+
+table td{
+    border:1px solid #e1e1e1;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+table th{
+    border:1px solid #e1e1e1;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.pagination .active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--text-white);
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.page-link{
+    color:var(--primary);
+}
+
+.page-link:hover{
+    color:var(--yellow);
+}
+
+
+.nav-link{
+    font-size: 16px;
+    font-weight:400;
+}
+
+.dashboard-heading{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.dashboard-subheading{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.circle-img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+
+.project-title{
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+}
+
+.project-subtitle{
+    font-size: 13px;
+    color: #707c84;
+}
+
+.required{
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 4px;
+}

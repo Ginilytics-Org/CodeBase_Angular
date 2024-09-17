@@ -1,0 +1,192 @@
+@if(!loading){
+<div class="container-fluid">
+    <h3 class="dashboard-subheading mt-5">Project Details</h3>
+    <div class="container-fluid pt-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <form class="row g-3" [formGroup]="projectForm" (ngSubmit)="editProject()">
+                            <div class="form-group">
+                                <label>Cover Photo</label>
+                                <div class="dotted flex-column" (click)="file.click()">
+                                    <input type="file" class="form-control" title="&nbsp;" style="display: none"
+                                        accept=".png, .jpg, .jpeg" #file (change)="onSelectCoverPic($event)" />
+                                    <span class="m-0">
+                                        <i class="bi bi-image"></i>
+                                    </span>
+                                    <!-- <span class="text-center m-0" >
+                                              <a>Upload a file </a> or drag and drop <br><span class="light"> PNG, JPG ,GIF up to 10 MB</span>
+                                            </span> -->
+                                    <div class="detail">
+                                        <img [src]="projectImage" class="selected-image detail-img"
+                                            alt="Project Image" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" formControlName="name" />
+                                @if( projectForm.controls['name'].errors && (submit ||
+                                projectForm.controls['name'].touched)){
+                                <div class="">
+                                    <div>Project Name is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="access" class="form-label">Access</label>
+                                <select id="access" class="form-select" formControlName="access">
+                                    <option value="Public">Public</option>
+                                    <option value="Private">Private</option>
+                                </select>
+                                @if( projectForm.controls['access'].errors && (submit ||
+                                projectForm.controls['access'].touched)){
+                                <div class="">
+                                    <div>Access is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="key" class="form-label">Key</label>
+                                <input type="text" class="form-control" id="key" formControlName="key" />
+                                @if( projectForm.controls['key'].errors && (submit ||
+                                projectForm.controls['key'].touched)){
+                                <div class="">
+                                    <div>Key is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category" class="form-label">Category</label>
+                                <select id="category" class="form-select" formControlName="categoryId">
+                                    @for (category of categories; track category.id){
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    }
+                                </select>
+                                @if( projectForm.controls['categoryId'].errors && (submit ||
+                                projectForm.controls['categoryId'].touched)){
+                                <div class="">
+                                    <div>Category is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="clientName" class="form-label">Client Name</label>
+                                <input type="text" class="form-control" id="clientName" formControlName="clientName" />
+                                @if( projectForm.controls['clientName'].errors && (submit ||
+                                projectForm.controls['clientName'].touched)){
+                                <div class="">
+                                    <div>Client Name is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="clientCountry" class="form-label">Client Country</label>
+                                <input type="text" class="form-control" id="clientCountry"
+                                    formControlName="clientCountry" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="startDate" formControlName="startDate" />
+                                @if( projectForm.controls['startDate'].errors && (submit ||
+                                projectForm.controls['startDate'].touched)){
+                                <div class="">
+                                    <div>Start Date is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="endDate" formControlName="endDate" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="domain" class="form-label">Domain</label>
+                                <input type="text" class="form-control" id="domain" formControlName="domain" />
+                                @if( projectForm.controls['domain'].errors && (submit ||
+                                projectForm.controls['domain'].touched)){
+                                <div class="">
+                                    <div>Domain is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="projectTimeline" class="form-label">Project Timeline</label>
+                                <input type="text" class="form-control" id="projectTimeline"
+                                    formControlName="projectTimeline" />
+                                @if( projectForm.controls['projectTimeline'].errors && (submit
+                                || projectForm.controls['projectTimeline'].touched)){
+                                <div class="">
+                                    <div>Project Timeline is Required *</div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lead" class="form-label">Lead</label>
+                                <select id="lead" class="form-select" formControlName="leadId">
+                                    @for (user of users; track user.userId) {
+                                        <option value="{{user.userId}}">{{user.userName}}</option>
+                                    }
+                                    
+                                </select>
+                            </div>
+                            <div>
+                                <input type="file" id="fileInput" (change)="UploadFile($event)" hidden />
+                                <label for="fileInput" class="btn btn-primary">
+                                    <i class="fa fa-paperclip"></i> Attach File
+                                </label>
+                            </div>
+                            <div class="pt-4 pb-2">
+                                @if (documentData?.length !=0) {
+                                <span>Attachments</span>
+                                <div class="border p-3">
+                                    @for (document of documentData; track document){
+                                    <div class="card-body mb-4">
+                                        <h5 class="card-title">{{ document.fileName }}</h5>
+                                        <p class="card-text"></p>
+                                        <div class="file-input-containers d-flex justify-content-center">
+                                            <button type="button" style="color: black" class="btn mr-1" (click)="
+                          previewFile(document.path, document.contentType)
+                        ">
+                                                view
+                                            </button>
+                                            <button type="button" style="color: rgb(61, 152, 217)" class="btn mr-1"
+                                                (click)="
+                          downloadFile(
+                            document.path,
+                            document.contentType,
+                            document.fileName
+                          )
+                        ">
+                                                download
+                                            </button>
+                                            <button type="button" class="btn" style="color: rgb(239, 79, 79)"
+                                                (click)="cancelFile(document.id)">
+                                                delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-primary">
+                                    Edit Project
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+} @else {
+<div class="overlay">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+}
